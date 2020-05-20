@@ -16,6 +16,8 @@ class CustomUser(AbstractBaseUser):
         (supplier, 'Supplier'),
     ]
 
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
     email = models.EmailField(unique=True)
     role = models.CharField(max_length=1, choices=role_choices, default=normal_user, blank=True)
     is_superuser = models.BooleanField(default=False)
@@ -33,10 +35,10 @@ class CustomUser(AbstractBaseUser):
         return self.email
 
     def get_full_name(self):
-        return self.email
+        return self.first_name + ' ' + self.last_name
 
     def get_short_name(self):
-        return self.email
+        return self.last_name
 
     def get_username(self):
         return self.email

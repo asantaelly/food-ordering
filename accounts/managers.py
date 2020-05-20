@@ -23,6 +23,8 @@ class CustomUserManager(BaseUserManager):
 
     def create_user(self, email=None, password=None, **custom_fields):
         user = self._create_user(email, password, is_active=False, is_staff=False, is_superuser=False)
+        user.first_name = custom_fields['first_name']
+        user.last_name = custom_fields['last_name']
         user.role = custom_fields['role']
         user.save()
         return user
