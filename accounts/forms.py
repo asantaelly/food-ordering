@@ -5,9 +5,9 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from .models import *
 
 
-class RegisterForm(forms.Form):
+class RegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
-    confirmed_password = forms.CharField(
+    confirm_password = forms.CharField(
         label='Confirm Password',
         widget=forms.PasswordInput
         )
@@ -18,14 +18,14 @@ class RegisterForm(forms.Form):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        check_email = CustomUser.users.filter(email=email)
+        check_email = CustomUser.objects.filter(email=email)
         if check_email.exists():
             raise forms.ValidationError("Email is taken")
         return email
 
     def clean_confirmed_password(self):
         password = self.cleaned_data.get("password")
-        confirmed_password = self.cleaned_data.get("confirmed_password")
-        if password and confirmed_password and password != confirmed_password:
+        confirm_password = self.cleaned_data.get("confirm_password")
+        if password and confirm_password and password != confirm_password:
             raise forms.ValidationError("Passwords don't match")
-        return confirmed_password
+        return confirm_password
