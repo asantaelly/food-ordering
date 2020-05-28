@@ -14,6 +14,7 @@ class Menu(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
 
+    objects = models.Manager()
 
     def __str__(self):
         return self.title

@@ -5,8 +5,9 @@
 <div class="container">
 	<div class="row">
       <div class="col-md-8 col-md-offset-3">
+          <h3> {{ title }}</h3>
         <div class="well well-sm">
-          <form class="form-horizontal" action="{% url 'accounts:registering'%}" method="post">
+          <form class="form-horizontal" action="{% url 'menu:store_menu'%}" method="post" enctype="multipart/form-data">
           {% csrf_token %}
           <fieldset>
             <legend class="text-center">Menu Registration</legend>
