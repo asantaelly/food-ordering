@@ -5,9 +5,12 @@ from .models import Menu
 from accounts.models import CustomUser
 
 def index(request):
+    menus = Menu.objects.all()
     context = {
         'title': 'Its all about the foodie',
+        'menu': menus,
     }
+  
     return render(request, 'menu/index.html', context)
 
 
