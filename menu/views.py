@@ -1,17 +1,14 @@
 from django.shortcuts import render, redirect
 from django.forms import ModelForm
+from django.views import generic
 
 from .models import Menu
 from accounts.models import CustomUser
 
-def index(request):
-    menus = Menu.objects.all()
-    context = {
-        'title': 'Its all about the foodie',
-        'menu': menus,
-    }
-  
-    return render(request, 'menu/index.html', context)
+class IndexView(generic.ListView):
+    model = Menu
+    context_object_name = 'menu_list'
+    template_name = 'menu/menu_list.html'
 
 
 def create_menu(request):

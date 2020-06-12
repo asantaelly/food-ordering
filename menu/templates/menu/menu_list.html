@@ -1,0 +1,42 @@
+{% extends 'menu/index.html' %}
+
+{% block content%}
+<style>
+        #list {
+            padding-top: 60px;
+        }
+</style>
+    <div id="list">
+        {% if not menu_list%}
+            <p class="text-center">
+                There is no menu for now.
+            </p>
+        {%endif%}
+        {% for menu in menu_list  %}
+                <div class="card border-0">
+                    <div class="card-body">
+                        <div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="/media/{{ menu.picture }}" width="200" height="200" class="rounded" alt="{{ menu.title}}">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <h3> {{ menu.title }}</h3> 
+                                    </div>
+                                    <div class="row">
+                                        <p>{{ menu.details }}</p>
+                                    </div>  
+                                    <div class="row">
+                                        <span>
+                                            {{ menu.price }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+    </div>   
+{% endblock %}
