@@ -2,8 +2,13 @@ from django.shortcuts import render, redirect
 from django.forms import ModelForm
 from django.views import generic
 
+from django.http import HttpResponseRedirect, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser 
+
 from .models import Menu
 from accounts.models import CustomUser
+from .serializers import MenuSerializer
 
 class IndexView(generic.ListView):
     model = Menu
@@ -48,3 +53,12 @@ def store_menu(request):
                 'message': 'Your form is not valid'
             }
             return redirect('/menu/register/', context)
+
+
+# API restful-framework
+def menu_list(request):
+    
+    if request.method == 'GET':
+        menu_all = Menu.objects.all()
+        serializer = MenuSerializer(menu_all, context={'request': request}, many=True)
+        return JsonResponse(serializer.data, safe=False)
