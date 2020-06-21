@@ -1,15 +1,11 @@
 from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
+from rest_framework.urlpatterns import format_suffix_patterns
 
 from . import views
 
 app_name = 'menu'
 
 urlpatterns = [
-    path('', views.IndexView.as_view(), name='index'),
-    path('register/', views.create_menu, name='create_menu'),
-    path('store/', views.store_menu, name='store_menu'),
-    path('list', views.menu_list, name='menu_list'),
-    path('create', views.menu_create, name='new_menu')
+    path('', views.menu_list),
+    path('<int:pk>', views.menu_detail),
 ]
