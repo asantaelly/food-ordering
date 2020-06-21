@@ -22,7 +22,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://127.0.0.1:8000/menu/list",
+					"raw": "http://127.0.0.1:9000/menu",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -30,10 +30,9 @@
 						"0",
 						"1"
 					],
-					"port": "8000",
+					"port": "9000",
 					"path": [
-						"menu",
-						"list"
+						"menu"
 					]
 				}
 			},
@@ -49,7 +48,7 @@
 					"formdata": [
 						{
 							"key": "title",
-							"value": "Burger",
+							"value": "Pasta",
 							"type": "text"
 						},
 						{
@@ -60,7 +59,7 @@
 						{
 							"key": "picture",
 							"type": "file",
-							"src": "/home/willz/Pictures/food/bread-burger-cheese-delicious-580612.jpg"
+							"src": "/home/willz/Pictures/food/pasta-on-white-plate-on-focus-photo-1527603.jpg"
 						},
 						{
 							"key": "price",
@@ -75,7 +74,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/menu/create",
+					"raw": "http://127.0.0.1:9000/menu/",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -83,10 +82,109 @@
 						"0",
 						"1"
 					],
-					"port": "8000",
+					"port": "9000",
 					"path": [
 						"menu",
-						"create"
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single Menu",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:9000/menu/2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9000",
+					"path": [
+						"menu",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Menu",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Birian Kuku",
+							"type": "text"
+						},
+						{
+							"key": "details",
+							"value": "Bismat rice and roasted Chicken",
+							"type": "text"
+						},
+						{
+							"key": "picture",
+							"type": "file",
+							"src": "/home/willz/Pictures/food/plate-of-rice-and-cooked-meat-1624487.jpg"
+						},
+						{
+							"key": "price",
+							"value": "7000",
+							"type": "text"
+						},
+						{
+							"key": "user",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9000/menu/6",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9000",
+					"path": [
+						"menu",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Menu",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:9000/menu/2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9000",
+					"path": [
+						"menu",
+						"2"
 					]
 				}
 			},
