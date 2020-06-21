@@ -11,4 +11,5 @@ urlpatterns = [
     path('register/', views.create_menu, name='create_menu'),
     path('store/', views.store_menu, name='store_menu'),
     path('list', views.menu_list, name='menu_list'),
+    path('create', views.menu_create, name='new_menu')
 ]

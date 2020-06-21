@@ -4,7 +4,10 @@ from django.views import generic
 
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser 
+from rest_framework.parsers import JSONParser
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 from .models import Menu
 from accounts.models import CustomUser
@@ -62,3 +65,13 @@ def menu_list(request):
         menu_all = Menu.objects.all()
         serializer = MenuSerializer(menu_all, context={'request': request}, many=True)
         return JsonResponse(serializer.data, safe=False)
+
+@api_view(['POST'])
+def menu_create(request):
+
+    if request.method == 'POST':
+        serializer = MenuSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
