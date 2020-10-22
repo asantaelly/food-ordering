@@ -1,53 +1,47 @@
+from rest_framework.parsers import JSONParser
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 from .models import Menu
 from .serializers import MenuSerializer
-from django.http import Http404
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from django.core.exceptions import ObjectDoesNotExist
 
 
-class MenuList(APIView):
-    # List all menus, or create a new menu.
-
-    def get(self, request, format=None):
-        menus = Menu.objects.all()
-        serializer = MenuSerializer(menus, many=True)
+@api_view(['GET', 'POST'])
+def menu_list(request, format=None):
+    
+    if request.method == 'GET':
+        menu_all = Menu.objects.all()
+        serializer = MenuSerializer(menu_all, context={'request': request}, many=True)
         return Response(serializer.data)
 
-    def post(self, request, format=None):
+    elif request.method == 'POST':
         serializer = MenuSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
 
+@api_view(['GET', 'PUT', 'DELETE'])
+def menu_detail(request, pk, format=None):
 
-class MenuDetail(APIView):
-    # Retrieve, update or delete a menu instance
+    try:
+        menu = Menu.objects.get(pk=pk)
+    except Menu.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-    def get_object(self, pk):
-        try:
-            return Menu.objects.get(pk=pk)
-        except ObjectDoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        menu = self.get_object(pk)
+    if request.method == 'GET':
         serializer = MenuSerializer(menu)
         return Response(serializer.data)
 
-    def put(self, request, pk, format=None):
-        menu = self.get_object(pk)
+    elif request.method == 'PUT':
         serializer = MenuSerializer(menu, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-    def delete(self, request, pk, format=None):
-        menu = self.get_object(pk)
+    elif request.method == 'DELETE':
         menu.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
