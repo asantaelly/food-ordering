@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -85,6 +86,13 @@ DATABASES = {
         'HOST': 'localhost'
     }
 }
+
+
+GRAPHENE = {
+    "SCHEMA": "food_ordering.schema.schema"
+}
+
+
 
 
 # Password validation
