@@ -1,7 +1,6 @@
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
-from graphene_file_upload.scalars import Upload
 
 from menu.models import Menu
 from menu.forms import MenuForm
@@ -16,7 +15,6 @@ class MenuType(DjangoObjectType):
 class CreateMenu(DjangoModelFormMutation):
     class Meta:
         form_class = MenuForm
-        form_class.picture = Upload(required=True)
     
     success = graphene.Boolean()
 
