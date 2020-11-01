@@ -51,7 +51,22 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+GRAPHENE = {
+    "SCHEMA": "food_ordering.schema.schema",
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
+}
+
 
 ROOT_URLCONF = 'food_ordering.urls'
 
@@ -86,13 +101,6 @@ DATABASES = {
         'HOST': 'localhost'
     }
 }
-
-
-GRAPHENE = {
-    "SCHEMA": "food_ordering.schema.schema"
-}
-
-
 
 
 # Password validation
