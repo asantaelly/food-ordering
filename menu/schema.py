@@ -1,6 +1,5 @@
 import graphene
 from graphene_django import DjangoObjectType
-from graphene_django.forms.mutation import DjangoModelFormMutation
 
 from menu.models import Menu
 from menu.forms import MenuForm
@@ -11,12 +10,6 @@ class MenuType(DjangoObjectType):
         fields = ("id", "title", 
         "details", "picture",
         "price", "is_available")
-
-class CreateMenu(DjangoModelFormMutation):
-    class Meta:
-        form_class = MenuForm
-    
-    success = graphene.Boolean()
 
 class Query(graphene.ObjectType):
     all_menus = graphene.List(MenuType)
@@ -30,6 +23,3 @@ class Query(graphene.ObjectType):
         # Querying a single menu
         return Menu.objects.get(pk=id)
 
-
-class Mutation(graphene.ObjectType):
-    create_menu = CreateMenu.Field()

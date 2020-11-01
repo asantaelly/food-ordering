@@ -9,7 +9,7 @@ class Query(
     pass
 
 class Mutation(
-    menu.schema.Mutation, accounts.schema.Mutation, 
+    accounts.schema.Mutation, 
     graphene.ObjectType):
     pass
 
