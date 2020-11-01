@@ -24,21 +24,8 @@ class Query(graphene.ObjectType):
 
 
 class CreateUser(DjangoModelFormMutation):
-
     class Meta:
         form_class = RegisterForm
-
-    custom_user = graphene.Field(CustomerUserType)
-
-    # def mutate(self, info, form_class=None):
-    #     custom_user = CustomUser(
-    #         first_name=form_class.first_name,
-    #         last_name=form_class.last_name,
-    #         email=form_class.email,
-    #     )
-
-
-        # return CreateUser(custom_user=custom_user)
 
 
 class Mutation(graphene.ObjectType):
