@@ -6,7 +6,7 @@ This is a food delivery system
 
 Install Dependencies
 ```
-    npm install -r requirements.txt
+    pip install -r requirements.txt
 ```
 
 Activate Enviroment
