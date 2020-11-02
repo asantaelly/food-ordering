@@ -3,20 +3,27 @@
 This is a food delivery system
 
 ## Getting Started
-This repo has many branches:-
-    web: contains django templating
-    class_based: django-restful api
-    view_based: the same as class_based
-    master: api implemented in GraphQL, this is default
 
+Install Dependencies
+```
+    npm install -r requirements.txt
+```
 
+Activate Enviroment
+``` 
+    source path/to/env/bin/activate
+```
 
-## Notice
+Run Local Server 
+```
+    python manage.py runserver <port{9001}>
+```
 
+Navigate to GraphQL endpoint
+```
+    127.0.0.1:9001/graphql
+```
 
-## Authors
-
-* **Kelvin Shoo** - [wi11z](https://github.com/wi11z)
 
 ## License
 
