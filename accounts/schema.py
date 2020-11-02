@@ -11,7 +11,6 @@ class CustomUserType(DjangoObjectType):
         model = CustomUser
         fields = ("id", "first_name", "last_name",
         "email", "role", "is_active", "date_joined")
-        USERNAME_FIELD = 'email'
 
 
 class Query(graphene.ObjectType):
@@ -25,9 +24,29 @@ class Query(graphene.ObjectType):
         return CustomUser.objects.get(pk=id)
 
 
-class CreateUser(DjangoModelFormMutation):
-    class Meta:
-        form_class = RegisterForm
+class CreateUser(graphene.Mutation):
+    custom_user = graphene.Field(CustomUserType)
+
+    class Arguments:
+        first_name = graphene.String(required=True)
+        last_name = graphene.String(required=True)
+        email = graphene.String(required=True)
+        password = graphene.String(required=True)
+        confirm_password = graphene.String(required=True)
+
+
+    def mutate(self, info, first_name, last_name, email, password, confirm_password):
+        custom_user = CustomUser(
+            first_name=first_name,
+            last_name=last_name,
+            email=email
+        )
+
+        custom_user.set_password(password)
+        custom_user.save()
+
+        return CreateUser(custom_user=custom_user)
+        # pass
 
 
 class ObtainJSONWebToken(graphql_jwt.JSONWebTokenMutation):
@@ -39,7 +58,7 @@ class ObtainJSONWebToken(graphql_jwt.JSONWebTokenMutation):
 
 class Mutation(graphene.ObjectType):
     # Mutation variables for authentication
-    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+    token_auth = ObtainJSONWebToken.Field()
     veriry_token = graphql_jwt.Verify.Field()
     refresh_token = graphql_jwt.Refresh.Field()
 
