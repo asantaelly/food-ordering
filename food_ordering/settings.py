@@ -19,13 +19,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%_idno$4%33!^x0*2q(xg4v4p7f91u%)#5jib^=8ed=%-ktso6'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -96,13 +94,17 @@ WSGI_APPLICATION = 'food_ordering.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'foodie_db',
-        'USER': 'willz',
-        'PASSWORD': 'iamgroot',
-        'HOST': 'localhost'
+        'ENGINE': os.environ.get("POSTGRES_ENGINE", "django.contrib.gis.db.backends.postgis"),
+        'NAME': os.environ.get("POSTGRES_DB", 'database'),
+        'USER': os.environ.get("POSTGRES_USER", "'admin'"),
+        'PASSWORD': os.environ.get("POSTGRES_PASSWORD", "password"),
+        'HOST': os.environ.get("POSTGRES_HOST", "localhost"),
+        'PORT': os.environ.get("POSTGRES_PORT", "5432"),
     }
 }
+
+GDAL_LIBRARY_PATH = '/usr/lib/libgdal.so.27'
+GEOS_LIBRARY_PATH = '/usr/lib/libgeos_c.so.1'
 
 
 # Password validation

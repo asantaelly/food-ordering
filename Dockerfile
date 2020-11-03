@@ -17,7 +17,7 @@ COPY ./requirements.txt /requirements.txt
 # build-deps and then delete the pacakge which goes along with the extra
 # dependencies for pillow installation, to reduce the image size
 RUN apk update \
-    && apk add --virtual build-deps gcc libffi libffi-dev python3-dev musl-dev \
+    && apk add --virtual build-deps gcc poppler libffi libffi-dev python3-dev musl-dev \
     && apk add postgresql \
     && apk add postgresql-dev \
     && pip install psycopg2 \
