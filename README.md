@@ -2,28 +2,34 @@
 
 This is a food delivery system
 
-## Getting Started
+## Getting started
 
-Install Dependencies
-```
-    pip install -r requirements.txt
-```
+### Prerequisites
 
-Activate Enviroment
-``` 
-    source path/to/env/bin/activate
-```
+Things you need to install in order to run the project in your local development
 
-Run Local Server 
-```
-    python manage.py runserver <port{9001}>
-```
+- Install Docker https://docs.docker.com/get-docker/
+- Install Docker-compose https://docs.docker.com/compose/install/
 
-Navigate to GraphQL endpoint
+### Running the project
+
+- Clone the repo
+
 ```
-    127.0.0.1:9001/graphql
+# git clone https://github.com/wi11z/food-ordering.git
+
 ```
 
+- Create .env file from .env.example
+- Add your database information
+- cd to the project directory and then run 
+
+```
+docker-compose up
+```
+
+- project should be served at ``` localhost:8011/graphql```
+- if you want to change that, update the ```docker-compose.yml``` file
 
 ## License
 
