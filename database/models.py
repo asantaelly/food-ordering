@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser
 
-from .managers import CustomUserManager
+from database.managers import CustomUserManager
 
 # Create your models here.
 class CustomUser(AbstractBaseUser):

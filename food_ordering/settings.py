@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'menu',
     'database',
+    'frontend',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
