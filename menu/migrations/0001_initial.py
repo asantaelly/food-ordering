@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('accounts', '0001_initial'),
+        ('database', '0001_initial'),
     ]
 
     operations = [
@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ('price', models.CharField(max_length=12)),
                 ('is_available', models.BooleanField(default=True)),
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='accounts.CustomUser')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='database.CustomUser')),
             ],
         ),
     ]

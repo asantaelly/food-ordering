@@ -8,7 +8,7 @@ def index(request):
     context = {
         'title': 'Welcome to the boring site',
     }
-    return render(request, 'accounts/index.html', context)
+    return render(request, 'database/index.html', context)
 
 
 def registration_form(request):
@@ -16,7 +16,7 @@ def registration_form(request):
         'Success': True,
         'Message': 'Registration form'
     }
-    return render(request, 'accounts/register.html', context)
+    return render(request, 'database/register.html', context)
 
 
 def register_user(request):
@@ -33,15 +33,15 @@ def register_user(request):
                 'success': True,
                 'message': 'Welcome to the service'
             }
-            return render(request, 'accounts/index.html', context)
+            return render(request, 'database/index.html', context)
         else:
             context = {
                 'success': False,
                 'message': 'Please check your input, Something is wrong.'
             }
-            return render(request, 'accounts/register.html', context)
+            return render(request, 'database/register.html', context)
     else:
         form = RegisterForm()
-        return render(request, 'accounts/register.html', {"form": form})
+        return render(request, 'database/register.html', {"form": form})
 
         

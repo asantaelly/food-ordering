@@ -3,8 +3,8 @@ from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 import graphql_jwt
 
-from accounts.models import CustomUser
-from accounts.forms import RegisterForm
+from database.models import CustomUser
+from database.forms import RegisterForm
 
 class CustomUserType(DjangoObjectType):
     class Meta:

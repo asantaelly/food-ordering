@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 
-from accounts.models import CustomUser
+from database.models import CustomUser
 
 class Menu(models.Model):
 
