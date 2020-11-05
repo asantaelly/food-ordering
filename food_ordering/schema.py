@@ -1,7 +1,7 @@
 import graphene
 
 import menu.schema
-import frontend.schema
+import api.schema
 
 class Query(
     menu.schema.Query, frontend.schema.Query,
