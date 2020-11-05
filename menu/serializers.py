@@ -1,4 +1,4 @@
-from .models import Menu
+from database.models import Menu
 from rest_framework import serializers
 
 class MenuSerializer(serializers.ModelSerializer):

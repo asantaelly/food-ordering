@@ -1,6 +1,6 @@
 from django import forms
 
-from menu.models import Menu
+from database.models import Menu
 
 class MenuForm(forms.ModelForm):
 

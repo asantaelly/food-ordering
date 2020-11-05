@@ -1,7 +1,7 @@
 import graphene
 from graphene_django import DjangoObjectType
 
-from menu.models import Menu
+from database.models import Menu
 from menu.forms import MenuForm
 
 class MenuType(DjangoObjectType):
