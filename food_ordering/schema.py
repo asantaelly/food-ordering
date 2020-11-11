@@ -1,15 +1,14 @@
 import graphene
 
-import menu.schema
 import api.schema
 
 class Query(
-    menu.schema.Query, frontend.schema.Query,
+    api.schema.Query,
     graphene.ObjectType):
     pass
 
 class Mutation(
-    frontend.schema.Mutation, 
+    api.schema.Mutation,
     graphene.ObjectType):
     pass
 
