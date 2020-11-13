@@ -5,8 +5,8 @@ from rest_framework.response import Response
 from graphql_jwt.shortcuts import get_token
 
 from database.models import Menu
+from database.models import CustomUser
 from .serializers import MenuSerializer
-
 
 @api_view(['GET', 'POST'])
 def menu_list(request, format=None):
@@ -17,15 +17,17 @@ def menu_list(request, format=None):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        # if request.user.is_authenticated
-        # return print(request.user.is_authenticated)
-        # return Response(request.user.is_authenticated)
 
-        serializer = MenuSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if request.user.is_authenticated:
+            request.data['user'] = request.user.id
+            serializer = MenuSerializer(data=request.data)
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
+        
         
 
 @api_view(['GET', 'PUT', 'DELETE'])
