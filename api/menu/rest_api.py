@@ -2,6 +2,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from graphql_jwt.shortcuts import get_token
 
 from database.models import Menu
 from .serializers import MenuSerializer
@@ -16,6 +17,10 @@ def menu_list(request, format=None):
         return Response(serializer.data)
 
     elif request.method == 'POST':
+        # if request.user.is_authenticated
+        # return print(request.user.is_authenticated)
+        # return Response(request.user.is_authenticated)
+
         serializer = MenuSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

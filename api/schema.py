@@ -77,6 +77,10 @@ class Mutation(graphene.ObjectType):
     token_auth = ObtainJSONWebToken.Field()
     veriry_token = graphql_jwt.Verify.Field()
     refresh_token = graphql_jwt.Refresh.Field()
+    delete_token_cookie = graphql_jwt.DeleteJSONWebTokenCookie.Field()
+
+    # Long running refresh tokens
+    delete_refresh_token_cookie = graphql_jwt.DeleteRefreshTokenCookie.Field()
 
 
     # Mutation for creating a user
