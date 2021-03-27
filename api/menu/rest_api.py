@@ -1,14 +1,17 @@
 from rest_framework.parsers import JSONParser
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes
 from rest_framework.response import Response
 from graphql_jwt.shortcuts import get_token
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+
 
 from database.models import Menu
 from database.models import CustomUser
 from .serializers import MenuSerializer
 
 @api_view(['GET', 'POST'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
 def menu_list(request, format=None):
     
     if request.method == 'GET':
@@ -19,6 +22,8 @@ def menu_list(request, format=None):
     elif request.method == 'POST':
 
         if request.user.is_authenticated:
+            # token = get_token(request.user)
+            # return print(request.auth)
             request.data['user'] = request.user.id
             serializer = MenuSerializer(data=request.data)
 

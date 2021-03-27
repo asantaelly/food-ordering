@@ -30,6 +30,7 @@ ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 INSTALLED_APPS = [
     'rest_framework',
+    'rest_framework.authtoken',
     'database',
     'frontend',
     'api',
@@ -65,8 +66,8 @@ AUTHENTICATION_BACKENDS = [
 REST_FRAMEWORK = {
     
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
     ]
 }
 

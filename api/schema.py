@@ -2,6 +2,9 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 import graphql_jwt
+from graphql_jwt.shortcuts import get_token
+from django.contrib.auth import authenticate
+from django.core.exceptions import ObjectDoesNotExist
 
 from database.models import CustomUser, Menu
 
@@ -72,12 +75,50 @@ class ObtainJSONWebToken(graphql_jwt.JSONWebTokenMutation):
     def resolve(cls, root, info, **kwargs):
         return cls(user=info.context.user)
 
+class AuthenticateUser(graphene.Mutation):
+    token = graphene.String()
+    user = graphene.Field(CustomUserType)
+    success = graphene.Boolean()
+    error = graphene.String()
+
+    class Arguments:
+        email = graphene.String()
+        password = graphene.String()
+
+    def mutate(self, info, email=None, password=None):
+        if email is None:
+            error = 'You must provide a valid email'
+            return AuthenticateUser(success=False, error=error)
+        
+        if password is None:
+            error = 'You must provide a valid password'
+            return AuthenticateUser(success=False, error=error)
+
+        try:
+            user = CustomUser.users.get(email=email)
+        except ObjectDoesNotExist:
+            error = "user does not exist"
+            return AuthenticateUser(success=False, error=error)
+
+        authenticated_user = authenticate(email=email, password=password)
+
+        if authenticated_user is None:
+            error = "wrong email or password provided"
+            return AuthenticateUser(success=False, error=error)
+
+        token = get_token(user)
+
+        return AuthenticateUser(success=True, token=token, user=authenticated_user)
+
+                
+
 class Mutation(graphene.ObjectType):
     # Mutation variables for authentication
     token_auth = ObtainJSONWebToken.Field()
     veriry_token = graphql_jwt.Verify.Field()
     refresh_token = graphql_jwt.Refresh.Field()
     delete_token_cookie = graphql_jwt.DeleteJSONWebTokenCookie.Field()
+    authenticate_user = AuthenticateUser.Field()
 
     # Long running refresh tokens
     delete_refresh_token_cookie = graphql_jwt.DeleteRefreshTokenCookie.Field()

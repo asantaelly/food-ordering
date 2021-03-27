@@ -30,6 +30,7 @@ class CustomUser(AbstractBaseUser):
     REQUIRED_FIELDS = ['role']
 
     objects = CustomUserManager()
+    users = CustomUserManager()
 
     def __str__(self):
         return self.email
